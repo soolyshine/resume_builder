@@ -1,0 +1,41 @@
+name: lab9
+description: A simple Flutter MVVM app with go_router and provider
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.1.10
+    
+  web: ^0.5.1
+
+  path_provider: ^2.1.2  
+  shared_preferences: ^2.3.2   # <-- ДОДАНО
+
+  # --- Додані бібліотеки ---
+  provider: ^6.0.5
+  go_router: ^14.1.0
+
+  # Для роботи з HTTP або зображеннями (опціонально)
+  http: ^1.2.0
+
+  # Базові Flutter пакети
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/assets.jpg
+
