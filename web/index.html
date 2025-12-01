@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <!-- CSP (мʼяка), щоб AdSense працював -->
+  <!-- CSP для AdSense -->
   <meta http-equiv="Content-Security-Policy"
         content="script-src 'self' https://pagead2.googlesyndication.com 'unsafe-inline' 'unsafe-eval';">
 
+  <!-- Google AdSense -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4241934411862989"
     crossorigin="anonymous"></script>
@@ -19,8 +20,10 @@
 
 <body>
 
-  <!-- Контейнер, який відображає Flutter -->
-  <div id="ad-container" style="width:200px; height:120px;">
+  <!-- Ad container -->
+  <div id="ad-container" style="width:200px; height:120px; background: #FFD740; border: 1px solid #000;">
+    <p style="text-align:center; line-height:120px; margin:0;">AD Placeholder</p>
+    <!-- Якщо домен підтверджений в AdSense, реальна реклама замінить placeholder -->
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-4241934411862989"
@@ -33,7 +36,9 @@
     </script>
   </div>
 
+  <!-- Flutter Web -->
   <script src="flutter.js" defer></script>
   <script src="main.dart.js" defer></script>
 </body>
 </html>
+
