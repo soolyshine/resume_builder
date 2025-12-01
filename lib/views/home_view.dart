@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../viewmodels/home_viewmodel.dart';
 import '../viewmodels/theme_viewmodel.dart';
-import '../widgets/clickable_banner.dart'; 
+import '../widgets/ad_banner.dart'; // <-- додай цей імпорт
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -31,6 +31,7 @@ class HomeView extends StatelessWidget {
 
       body: Stack(
         children: [
+          // --- Основний контент
           ListView.builder(
             itemCount: persons.length,
             itemBuilder: (_, index) {
@@ -54,7 +55,17 @@ class HomeView extends StatelessWidget {
               );
             },
           ),
-          const ClickableBanner(),
+
+          // --- РЕКЛАМА справа по центру
+          Positioned(
+            right: 0,
+            top: MediaQuery.of(context).size.height * 0.30, // центр по висоті
+            child: SizedBox(
+              width: 200,   // ширина банера (можеш змінити)
+              height: 120,  // висота банера
+              child: AdBanner(),
+            ),
+          ),
         ],
       ),
 
@@ -70,14 +81,12 @@ class HomeView extends StatelessWidget {
               icon: const Icon(Icons.add),
               label: const Text('Додати резюме'),
             ),
-
             FloatingActionButton.extended(
               heroTag: 'githubStats',
               onPressed: () => context.go('/github'),
               icon: const Icon(Icons.code),
               label: const Text('GitHub статистика'),
             ),
-
             FloatingActionButton.extended(
               heroTag: 'mapKharkiv',
               onPressed: () => context.go('/map'),

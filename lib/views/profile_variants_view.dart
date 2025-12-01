@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../viewmodels/profile_variants_viewmodel.dart';
 import '../models/profile_variants.dart';
-import '../utils/web_file_saver.dart'; // ДОДАНО
+import '../utils/web_file_saver.dart'; 
 
 class ProfileVariantsView extends StatefulWidget {
   const ProfileVariantsView({super.key});
@@ -115,7 +115,7 @@ ${variant.skills}
 ${variant.experience}
 ''';
 
-  // WEB — синхронно → без проблем
+  
   if (kIsWeb) {
     WebFileSaver.saveTextFile(filename, content);
     return;
@@ -127,12 +127,12 @@ ${variant.experience}
 
     await file.writeAsString(content);
 
-    if (!mounted) return; // 🔥 захист
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Файл збережено: ${file.path}')),
     );
   } catch (e) {
-    if (!mounted) return; // 🔥 такий же захист у catch
+    if (!mounted) return; 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Помилка збереження: $e')),
     );
