@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../viewmodels/home_viewmodel.dart';
 import '../viewmodels/theme_viewmodel.dart';
-import '../widgets/ad_banner.dart'; // <-- додай цей імпорт
+import '../widgets/ad_banner.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
 
       body: Stack(
         children: [
-          // --- Основний контент
+          // Основний контент
           ListView.builder(
             itemCount: persons.length,
             itemBuilder: (_, index) {
@@ -56,15 +56,11 @@ class HomeView extends StatelessWidget {
             },
           ),
 
-          // --- РЕКЛАМА справа по центру
+          // Банер справа по центру
           Positioned(
             right: 0,
-            top: MediaQuery.of(context).size.height * 0.30, // центр по висоті
-            child: SizedBox(
-              width: 200,   // ширина банера (можеш змінити)
-              height: 120,  // висота банера
-              child: AdBanner(),
-            ),
+            top: MediaQuery.of(context).size.height * 0.3,
+            child: AdBanner(),
           ),
         ],
       ),
@@ -99,7 +95,6 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
 
 
 
