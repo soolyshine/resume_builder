@@ -1,10 +1,13 @@
-import 'dart:io';
+import 'dart:io' show File;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:go_router/go_router.dart';
+
 import '../viewmodels/profile_variants_viewmodel.dart';
 import '../models/profile_variants.dart';
+import '../utils/web_file_saver.dart'; // ДОДАНО
 
 class ProfileVariantsView extends StatefulWidget {
   const ProfileVariantsView({super.key});
@@ -97,11 +100,9 @@ class _ProfileVariantsViewState extends State<ProfileVariantsView> {
   }
 
   Future<void> _saveToFile(ProfileVariant variant) async {
-    try {
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/${variant.title.replaceAll(' ', '_')}.txt');
+  final filename = '${variant.title.replaceAll(' ', '_')}.txt';
 
-      final content = '''
+  final content = '''
 Резюме: ${variant.title}
 
 Опис:
@@ -114,18 +115,31 @@ ${variant.skills}
 ${variant.experience}
 ''';
 
-      await file.writeAsString(content);
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Файл збережено: ${file.path}')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Помилка збереження: $e')),
-      );
-    }
+  // WEB — синхронно → без проблем
+  if (kIsWeb) {
+    WebFileSaver.saveTextFile(filename, content);
+    return;
   }
+
+  try {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/$filename');
+
+    await file.writeAsString(content);
+
+    if (!mounted) return; // 🔥 захист
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Файл збережено: ${file.path}')),
+    );
+  } catch (e) {
+    if (!mounted) return; // 🔥 такий же захист у catch
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Помилка збереження: $e')),
+    );
+  }
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -194,6 +208,7 @@ ${variant.experience}
     );
   }
 }
+
 
 
 
